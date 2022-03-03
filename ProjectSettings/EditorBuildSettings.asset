@@ -4,7 +4,21 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/XRPersistent.unity
+    guid: b74d4bbc44dae19428a1bafc4eaf5b69
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 39b824da3c69cc34ebf90c48eeada09a
+  - enabled: 1
+    path: Assets/Scenes/CowboyUp.unity
+    guid: fd415c0eeea8fe74daf56d0ca35db054
+  - enabled: 1
+    path: Assets/Scenes/GridRoom.unity
+    guid: 5c6727ab97dcf5349b15c417bf28708a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: f495982a74834d645ad958d5970ffba9,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: f049548753554c140a3cbf78a0deac43,
       type: 2}
