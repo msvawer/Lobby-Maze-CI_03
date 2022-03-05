@@ -158,6 +158,7 @@ MonoBehaviour:
       m_Action: Tracked
       m_Flags: 0
     m_Flags: 0
+  interactor: {fileID: 0}
 --- !u!1 &788486062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,7 +1241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173912628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7137887, y: 1.84, z: 2.5059624}
+  m_LocalPosition: {x: 1.43, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1233977160}
@@ -1380,6 +1381,37 @@ MonoBehaviour:
   screenFade: {fileID: 2100000, guid: ad96d9119895f0e4ba307ba94cd6f8bc, type: 2}
   fadeSpeed: 1
   addedWaitTime: 2
+  onLoadStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onBeforeUnload:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 282315213}
+        m_MethodName: InteractionCleanup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1574275457}
+        m_MethodName: InteractionCleanup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onLoadFinish:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1238431194
 Transform:
   m_ObjectHideFlags: 0
@@ -1522,6 +1554,7 @@ MonoBehaviour:
       m_Action: Tracked
       m_Flags: 0
     m_Flags: 0
+  interactor: {fileID: 0}
 --- !u!1001 &1640959527
 PrefabInstance:
   m_ObjectHideFlags: 0
