@@ -11,9 +11,5 @@ public class GoToScene : MonoBehaviour
         SceneLoader.Instance.LoadScene(SceneInfo.scenes[(int)nextScene]);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
