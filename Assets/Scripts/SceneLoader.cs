@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 public class SceneLoader : Singleton<SceneLoader>
 {
+    //screen fade material we plug in editor inspector 
     public Material screenFade = null;
 
     [Min(0.001f)]
@@ -20,13 +21,16 @@ public class SceneLoader : Singleton<SceneLoader>
     bool m_isLoading = false;
     //bool to check before starting loading or unloading that a load or unload is not already in progress
 
+     //controls if we are 0 or 1 with fade amount 
     float m_fadeAmount = 0.0f;
+    //courotutine to keep track if we are fading or not
     Coroutine m_fadeCoroutine = null;
+    //access shader property ID, where our fade amount float will go for our fade material 
     static readonly int m_fadeAmountPropID = Shader.PropertyToID("_FadeAmount");
 
     Scene m_persistentScene;
 
-    private void Awake()
+    new private void  Awake()
     {
         SceneManager.sceneLoaded += SetActiveScene;
         m_persistentScene = SceneManager.GetActiveScene();
@@ -52,6 +56,7 @@ public class SceneLoader : Singleton<SceneLoader>
         }
     }
 
+    //unlike in Editor we want the loaded scene to become the active scene
     void SetActiveScene(Scene scene, LoadSceneMode mode)
     {
         SceneManager.SetActiveScene(scene);
@@ -79,9 +84,10 @@ public class SceneLoader : Singleton<SceneLoader>
         yield return StartCoroutine(LoadNewScene(name));
         //fade back into seeing newly loaded scene
         yield return FadeIn();
-        m_isLoading = false;
+        
         //if anyt callbacks subscribed waiting for this to finish, we'll let them know
         onLoadFinish?.Invoke();
+        m_isLoading = false;
     }
 
     IEnumerator UnLoadCurrentScene()
@@ -107,6 +113,7 @@ public class SceneLoader : Singleton<SceneLoader>
         {
             StopCoroutine(m_fadeCoroutine);
         }
+        //start couroutine Fade and target is 1
         m_fadeCoroutine = StartCoroutine(Fade(1.0f));
         yield return m_fadeCoroutine;
     }
@@ -117,18 +124,23 @@ public class SceneLoader : Singleton<SceneLoader>
         {
             StopCoroutine(m_fadeCoroutine);
         }
+        //starting Fade Couroutine and the target is 0
         m_fadeCoroutine = StartCoroutine(Fade(0.0f));
         yield return m_fadeCoroutine;
     }
 
     IEnumerator Fade(float target)
     {
+        //while fade amount is not yet at target 
         while(Mathf.Approximately(m_fadeAmount, target))
         {
+            //setting the fade amount float that will go to shader to go towards the target at the fadespeed float smoothed out by time.deltaTime
             m_fadeAmount = Mathf.MoveTowards(m_fadeAmount, target, fadeSpeed * Time.deltaTime);
             screenFade.SetFloat(m_fadeAmountPropID, m_fadeAmount);
             yield return null;
         }
+        //just to ensure it gets set to target
+        screenFade.SetFloat(m_fadeAmountPropID, target);
 
     }
 
