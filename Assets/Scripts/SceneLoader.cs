@@ -13,11 +13,13 @@ public class SceneLoader : Singleton<SceneLoader>
     [Range(0.0f, 5.0f)]
     public float addedWaitTime = 2.0f;
 
-    public  UnityEvent onLoadStart = new UnityEvent();
+    public UnityEvent onLoadStart = new UnityEvent();
     public UnityEvent onBeforeUnload = new UnityEvent();
     public UnityEvent onLoadFinish = new UnityEvent();
 
     bool m_isLoading = false;
+    //bool to check before starting loading or unloading that a load or unload is not already in progress
+
     float m_fadeAmount = 0.0f;
     Coroutine m_fadeCoroutine = null;
     static readonly int m_fadeAmountPropID = Shader.PropertyToID("_FadeAmount");
@@ -58,32 +60,42 @@ public class SceneLoader : Singleton<SceneLoader>
 
     IEnumerator Load(string name)
     {
+        //alert our bool that a load has started so as not to start others 
         m_isLoading = true;
+        //invoke the onLoadStart Event, set to optional in case nothing is subscribed
         onLoadStart?.Invoke();
+        //call screen fade
         yield return FadeOut();
 
         onBeforeUnload?.Invoke();
         yield return new WaitForSeconds(0);
 
+        //unload current Scene
         yield return StartCoroutine(UnLoadCurrentScene());
 
         yield return new WaitForSeconds(addedWaitTime);
 
+        //Load the new scene by name
         yield return StartCoroutine(LoadNewScene(name));
+        //fade back into seeing newly loaded scene
         yield return FadeIn();
         m_isLoading = false;
+        //if anyt callbacks subscribed waiting for this to finish, we'll let them know
         onLoadFinish?.Invoke();
     }
 
     IEnumerator UnLoadCurrentScene()
     {
+        //get the active scene from Scene manager and unload it asynchronosly via scene manager
         AsyncOperation unload = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        //while it is unloading in progress we keep going until is done then we can get out of couroutine...
         while (!unload.isDone)
             yield return null;
     }
 
     IEnumerator LoadNewScene(string name)
     {
+        //use scene manager LoadSceneAsync funtion and load by name in additive mode
         AsyncOperation load = SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
         while (!load.isDone)
         yield return null;

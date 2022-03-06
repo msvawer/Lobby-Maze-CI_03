@@ -16,7 +16,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"1d6b3144-772c-4936-aa33-747cb068fdb2\"\n    },\n    \"m_Name\": \"FadeAmount\",\n    \"m_DefaultReferenceName\": \"Vector1_D7886188\",\n    \"m_OverrideReferenceName\": \"_FadeColor_1\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": 0.0,\n    \"m_FloatType\": 1,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    }\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"1d6b3144-772c-4936-aa33-747cb068fdb2\"\n    },\n    \"m_Name\": \"FadeAmount\",\n    \"m_DefaultReferenceName\": \"Vector1_D7886188\",\n    \"m_OverrideReferenceName\": \"_FadeAmount\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": 0.0,\n    \"m_FloatType\": 1,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    }\n}"
         }
     ],
     "m_SerializedKeywords": [],

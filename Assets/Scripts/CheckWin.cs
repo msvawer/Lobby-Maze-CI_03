@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class CheckWin : MonoBehaviour
 {
 
+    public SceneInfo.sceneID nextScene = SceneInfo.sceneID.Lobby;
     public UnityEvent onWin = new UnityEvent();
     // Start is called before the first frame update
     
@@ -16,7 +17,13 @@ public class CheckWin : MonoBehaviour
         if(other.gameObject.CompareTag("MainCamera"))
             {
             Debug.Log("you win or MainCamera tag entered");
+            GoToLobby();
             onWin?.Invoke();
         }
+    }
+
+    public void GoToLobby()
+    {
+        SceneLoader.Instance.LoadScene(SceneInfo.scenes[(int)nextScene]);
     }
 }
