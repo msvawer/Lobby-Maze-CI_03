@@ -30,7 +30,7 @@ public class SceneLoader : Singleton<SceneLoader>
 
     Scene m_persistentScene;
 
-    new private void  Awake()
+    override protected void  Awake()
     {
         SceneManager.sceneLoaded += SetActiveScene;
         m_persistentScene = SceneManager.GetActiveScene();
@@ -96,7 +96,10 @@ public class SceneLoader : Singleton<SceneLoader>
         AsyncOperation unload = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         //while it is unloading in progress we keep going until is done then we can get out of couroutine...
         while (!unload.isDone)
+        {
             yield return null;
+        }
+            
     }
 
     IEnumerator LoadNewScene(string name)
@@ -104,7 +107,10 @@ public class SceneLoader : Singleton<SceneLoader>
         //use scene manager LoadSceneAsync funtion and load by name in additive mode
         AsyncOperation load = SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
         while (!load.isDone)
-        yield return null;
+        {
+            yield return null;
+        }
+       
     }
 
     IEnumerator FadeOut()
